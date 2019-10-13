@@ -1,7 +1,6 @@
 #include <TimerOne.h>
 #include <WISOL.h>
 #include <Tsensors.h>
-#include <Wire.h>
 #include <math.h>
 Isigfox *Isigfox = new WISOL();
 Tsensors *tSensors = new Tsensors();
@@ -10,17 +9,16 @@ const int buttonPin = A1;
 int pulses = 0;
 float m3 = 0.00;
 
+
 // Init function
 void setup() {
-  Wire.begin();
-  Wire.setClock(100000);
   Serial.begin(9600);// Init serial connection between Arduino and Modem
   Isigfox->initSigfox();// WISOL modem test
   Isigfox->testComms();
   tSensors->initSensors();// Init sensors on Thinxtra Module
   tSensors->setButton(buttonIR); // Init an interruption on the button of the Xkit
   // pinMode(buttonPin, INPUT);
-  Timer1.initialize(2000000000); // Inicializa o Timer1 e configura para um período de X segundos
+  Timer1.initialize(3000000000); // Inicializa o Timer1 e configura para um período de X segundos
   Timer1.attachInterrupt(send_data); // Configura a função Send_Pload() como a função para ser chamada a cada interrupção do Timer1
 }
 
